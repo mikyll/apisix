@@ -432,6 +432,9 @@ function _M.rewrite(conf, ctx)
         core.log.warn("Failed to verify JWT: ", jwt_obj.reason)
         return 401, {message = "Failed to verify JWT"}
     end
+    
+    -- Store the JWT object in the context
+    ctx.jwt_obj = jwt_obj
 
     consumer_mod.attach_consumer(ctx, consumer, consumer_conf)
     core.log.info("Hit jwt-auth rewrite")
